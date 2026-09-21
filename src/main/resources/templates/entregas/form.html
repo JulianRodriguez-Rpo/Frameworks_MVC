@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de entrega</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/menu :: menu}"></nav>
+
+<div class="container">
+    <h1 th:text="${entrega.id} != null ? 'Editar entrega' : 'Nueva entrega'"></h1>
+
+    <form class="form-card" th:action="@{/entregas/guardar}" th:object="${entrega}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="pedido">Pedido</label>
+        <select id="pedido" th:field="*{pedido}">
+            <option th:each="p : ${pedidos}" th:value="${p.id}"
+                    th:text="'#' + ${p.id} + ' - ' + ${p.tipoArreglo}"></option>
+        </select>
+
+        <label for="conductor">Conductor asignado</label>
+        <input id="conductor" type="text" th:field="*{conductor}" required>
+
+        <label for="rutaEntrega">Ruta de entrega</label>
+        <input id="rutaEntrega" type="text" th:field="*{rutaEntrega}">
+
+        <label for="estadoEntrega">Estado de la entrega</label>
+        <select id="estadoEntrega" th:field="*{estadoEntrega}">
+            <option th:each="e : ${estados}" th:value="${e}" th:text="${e}"></option>
+        </select>
+
+        <div class="form-actions">
+            <button class="btn" type="submit">Guardar</button>
+            <a class="btn btn-secondary" th:href="@{/entregas}">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

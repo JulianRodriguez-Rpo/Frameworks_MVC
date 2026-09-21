@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de entregas</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/menu :: menu}"></nav>
+
+<div class="container">
+    <h1>Gestión de entregas</h1>
+    <a class="btn" th:href="@{/entregas/nueva}">+ Nueva entrega</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Pedido</th>
+            <th>Conductor</th>
+            <th>Ruta de entrega</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entrega : ${entregas}">
+            <td th:text="${entrega.pedido != null ? '#' + entrega.pedido.id + ' - ' + entrega.pedido.tipoArreglo : '-'}"></td>
+            <td th:text="${entrega.conductor}"></td>
+            <td th:text="${entrega.rutaEntrega}"></td>
+            <td th:text="${entrega.estadoEntrega}"></td>
+            <td class="actions">
+                <a th:href="@{'/entregas/editar/' + ${entrega.id}}">Editar</a>
+                <a th:href="@{'/entregas/eliminar/' + ${entrega.id}}"
+                   onclick="return confirm('¿Eliminar esta entrega?');">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

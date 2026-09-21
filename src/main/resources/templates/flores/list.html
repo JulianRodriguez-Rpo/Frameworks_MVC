@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario de flores</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/menu :: menu}"></nav>
+
+<div class="container">
+    <h1>Inventario de flores</h1>
+    <a class="btn" th:href="@{/flores/nueva}">+ Nueva flor</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Color</th>
+            <th>Variedad</th>
+            <th>Cantidad</th>
+            <th>Precio compra</th>
+            <th>Precio venta</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="flor : ${flores}">
+            <td th:text="${flor.tipo}"></td>
+            <td th:text="${flor.color}"></td>
+            <td th:text="${flor.variedad}"></td>
+            <td th:text="${flor.cantidadDisponible}"></td>
+            <td th:text="${flor.precioCompra}"></td>
+            <td th:text="${flor.precioVenta}"></td>
+            <td class="actions">
+                <a th:href="@{'/flores/editar/' + ${flor.id}}">Editar</a>
+                <a th:href="@{'/flores/eliminar/' + ${flor.id}}"
+                   onclick="return confirm('¿Eliminar esta flor del inventario?');">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
